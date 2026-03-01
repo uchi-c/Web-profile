@@ -6,15 +6,15 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'index.html')));
 
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/projects', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'projects.html'));
+  res.sendFile(path.join(__dirname,  'projects.html'));
 });
 
 // API: Contact form submission

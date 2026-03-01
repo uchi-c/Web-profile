@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Uchi Chinyama</title>
+  <meta name="description" content="Uchi Chinyama's cybersecurity and software development projects — live from GitHub." />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    /* ── PAGE HERO ── */
+    .page-hero {
+      min-height: 48vh;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 9rem 4rem 4rem;
+      position: relative; overflow: hidden;
+      background: var(--bg2);
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,200,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,255,0.02) 1px, transparent 1px);
+      background-size: 55px 55px;
+      pointer-events: none;
+    }
+    .ph-blob {
+      position: absolute; border-radius: 50%; filter: blur(140px); pointer-events: none;
+    }
+    .ph-blob-1 { width: 600px; height: 400px; background: radial-gradient(circle, rgba(0,87,255,0.12), transparent 70%); top: -80px; right: -100px; }
+    .ph-blob-2 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,200,255,0.06), transparent 70%); bottom: 0; left: 15%; }
+
+    .page-hero-inner { position: relative; z-index: 2; }
+    .page-eyebrow {
+      font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .7rem;
+    }
+    .page-eyebrow::before {
+      content: ''; display: inline-block;
+      width: 28px; height: 1px; background: var(--accent);
+    }
+    .page-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: clamp(2.5rem, 5vw, 5rem);
+      letter-spacing: -0.03em; line-height: .95;
+      margin-bottom: 1.2rem;
+    }
+    .page-sub {
+      font-size: .82rem; line-height: 1.8;
+      color: var(--text-dim); max-width: 540px;
+    }
+    .github-badge {
+      display: inline-flex; align-items: center; gap: .7rem;
+      margin-top: 1.8rem;
+      padding: .55rem 1.2rem;
+      border: 1px solid var(--border2);
+      text-decoration: none; color: var(--text-mid);
+      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .github-badge:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+    .github-badge svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* ── FEATURED SECTION ── */
+    #featured { background: var(--bg); }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5px; background: var(--border);
+    }
+    .feat-card {
+      background: var(--bg); padding: 2.5rem;
+      position: relative; overflow: hidden;
+      transition: background .3s;
+      display: flex; flex-direction: column;
+    }
+    .feat-card::before {
+      content: ''; position: absolute;
+      inset: 0; border: 1px solid transparent;
+      transition: border-color .3s; pointer-events: none;
+    }
+    .feat-card:hover { background: var(--surface); }
+    .feat-card:hover::before { border-color: rgba(0,200,255,0.15); }
+
+    .feat-card-num {
+      font-size: .58rem; letter-spacing: .2em; color: var(--accent);
+      opacity: .55; margin-bottom: 1.5rem;
+    }
+    .feat-card-icon {
+      font-size: 2.2rem; margin-bottom: 1.3rem;
+      filter: grayscale(1) brightness(1.3);
+      transition: filter .3s;
+    }
+    .feat-card:hover .feat-card-icon { filter: none; }
+    .feat-card-name {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1.15rem; margin-bottom: .8rem;
+      letter-spacing: -0.01em;
+    }
+    .feat-card-desc {
+      font-size: .76rem; line-height: 1.88;
+      color: var(--text-dim); flex: 1;
+    }
+    .feat-card-tags { display: flex; gap: .4rem; flex-wrap: wrap; margin: 1.2rem 0; }
+    .feat-card-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text-dim); text-decoration: none;
+      border-top: 1px solid var(--border); padding-top: 1.2rem; margin-top: auto;
+      transition: color .2s;
+    }
+    .feat-card-link:hover { color: var(--accent); }
+    .feat-card-link svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    /* ── GITHUB REPOS ── */
+    #github-repos { background: var(--bg2); }
+
+    .repos-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .repos-filter { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .filter-btn {
+      padding: .35rem .8rem;
+      border: 1px solid var(--border2);
+      background: transparent; color: var(--text-dim);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
+      cursor: none; transition: all .2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--accent); color: var(--accent); background: var(--accent-dim);
+    }
+    .repos-status { font-size: .65rem; color: var(--text-dim); }
+    .repos-status.live { color: var(--green); }
+
+    .repos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px; background: var(--border);
+    }
+
+    .repo-card {
+      background: var(--bg2); padding: 1.8rem;
+      transition: background .25s;
+      display: flex; flex-direction: column;
+    }
+    .repo-card:hover { background: var(--surface); }
+
+    .repo-lang-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      display: inline-block; margin-right: .4rem;
+    }
+    .repo-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: .8rem;
+    }
+    .repo-name {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: .95rem; color: var(--text);
+      text-decoration: none; transition: color .2s;
+    }
+    .repo-name:hover { color: var(--accent); }
+    .repo-ext-icon {
+      width: 14px; height: 14px; color: var(--text-dim);
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .repo-desc {
+      font-size: .73rem; line-height: 1.8;
+      color: var(--text-dim); flex: 1; margin-bottom: 1rem;
+    }
+    .repo-meta {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: .62rem; color: var(--text-dim);
+      border-top: 1px solid var(--border); padding-top: .9rem; margin-top: auto;
+    }
+    .repo-meta-item { display: flex; align-items: center; gap: .3rem; }
+    .repo-topics { display: flex; gap: .3rem; flex-wrap: wrap; margin-bottom: .8rem; }
+    .repo-topic {
+      font-size: .55rem; letter-spacing: .08em; text-transform: uppercase;
+      padding: .18rem .45rem;
+      background: rgba(0,200,255,0.07); border: 1px solid rgba(0,200,255,0.12);
+      color: var(--accent); border-radius: 1px;
+    }
+
+    /* Loading skeleton */
+    .skeleton-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px; background: var(--border);
+    }
+    .skeleton-card {
+      background: var(--bg2); padding: 1.8rem;
+      display: flex; flex-direction: column; gap: .8rem;
+    }
+    .sk {
+      background: linear-gradient(90deg, var(--border) 25%, var(--surface2) 50%, var(--border) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 2px;
+    }
+    .sk-title { height: 18px; width: 65%; }
+    .sk-line  { height: 10px; }
+    .sk-line:nth-child(3) { width: 90%; }
+    .sk-line:nth-child(4) { width: 75%; }
+    .sk-tag   { height: 16px; width: 40%; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    .repos-empty {
+      grid-column: 1/-1; padding: 4rem; text-align: center;
+      font-size: .8rem; color: var(--text-dim);
+    }
+
+    /* Lang colors */
+    .lang-python    { background: #3572A5; }
+    .lang-javascript{ background: #f1e05a; }
+    .lang-html      { background: #e34c26; }
+    .lang-css       { background: #563d7c; }
+    .lang-typescript{ background: #2b7489; }
+    .lang-shell     { background: #89e051; }
+    .lang-default   { background: #6b7f91; }
+
+    @media (max-width: 900px) {
+      .page-hero { padding: 8rem 1.5rem 3rem; }
+      .repos-toolbar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">UCHI<span class="accent">.</span>DEV</a>
+  <ul class="nav-links">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/projects" class="active">Projects</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══ PAGE HERO ══ -->
+<div class="page-hero">
+  <div class="ph-blob ph-blob-1"></div>
+  <div class="ph-blob ph-blob-2"></div>
+  <div class="page-hero-inner reveal">
+    <div class="page-eyebrow">Projects & Work</div>
+    <h1 class="page-title">WHAT I'VE<br><span style="color:var(--accent)">BUILT</span></h1>
+    <p class="page-sub">
+      A curated look at my cybersecurity tools, secure web systems, and research projects —
+      with live repositories pulled directly from GitHub.
+    </p>
+    <a href="https://github.com/uchi-c" target="_blank" class="github-badge">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      github.com/uchi-c
+    </a>
+  </div>
+</div>
+
+<!-- ══ FEATURED PROJECTS ══ -->
+<section id="featured">
+  <div class="section-header reveal">
+    <span class="section-number">01</span>
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="featured-grid">
+    <div class="feat-card reveal">
+      <div class="feat-card-num">PROJECT — 001</div>
+      <span class="feat-card-icon">🎣</span>
+      <h3 class="feat-card-name">AI-Driven Phishing Simulation Platform</h3>
+      <p class="feat-card-desc">
+        A sophisticated phishing simulation prototype designed to test and improve employee security awareness.
+        Features adaptive campaign logic that evolves based on response patterns, comprehensive reporting dashboards,
+        and a vulnerability tracking system — giving organizations a complete map of their human attack surface before adversaries exploit it.
+      </p>
+      <div class="feat-card-tags">
+        <span class="tag">Python</span>
+        <span class="tag">AI / ML</span>
+        <span class="tag">SMTP</span>
+        <span class="tag">Dashboard</span>
+        <span class="tag">Reporting</span>
+      </div>
+      <a href="https://github.com/uchi-c" target="_blank" class="feat-card-link">
+        View on GitHub
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="feat-card reveal" style="transition-delay:.1s">
+      <div class="feat-card-num">PROJECT — 002</div>
+      <span class="feat-card-icon">🔒</span>
+      <h3 class="feat-card-name">Secure Web Application Framework</h3>
+      <p class="feat-card-desc">
+        A hardened full-stack web system built to withstand common attack vectors from the OWASP Top 10.
+        Implements role-based access control, robust session management, comprehensive input validation,
+        and SQL injection prevention — a reference architecture for secure-by-default development practices.
+      </p>
+      <div class="feat-card-tags">
+        <span class="tag">Full-Stack</span>
+        <span class="tag">OWASP</span>
+        <span class="tag">RBAC</span>
+        <span class="tag">API Security</span>
+        <span class="tag">SQLi</span>
+      </div>
+      <a href="https://github.com/uchi-c" target="_blank" class="feat-card-link">
+        View on GitHub
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="feat-card reveal" style="transition-delay:.2s">
+      <div class="feat-card-num">PROJECT — 003</div>
+      <span class="feat-card-icon">📱</span>
+      <h3 class="feat-card-name">Mobile Fraud Protection & Awareness System</h3>
+      <p class="feat-card-desc">
+        Security awareness models purpose-built for emerging markets across Africa, focusing on practical mobile
+        fraud prevention and real-world scam detection training. Makes enterprise-level security education
+        accessible and culturally relevant at every level of digital literacy.
+      </p>
+      <div class="feat-card-tags">
+        <span class="tag">Awareness</span>
+        <span class="tag">Mobile</span>
+        <span class="tag">Africa</span>
+        <span class="tag">UX Research</span>
+        <span class="tag">Training</span>
+      </div>
+      <a href="https://github.com/uchi-c" target="_blank" class="feat-card-link">
+        View on GitHub
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GITHUB REPOS ══ -->
+<section id="github-repos">
+  <div class="section-header reveal">
+    <span class="section-number">02</span>
+    <h2 class="section-title">GitHub Repositories</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="repos-toolbar reveal">
+    <div class="repos-filter" id="filterBtns">
+      <button class="filter-btn active" data-lang="all">All</button>
+      <button class="filter-btn" data-lang="Python">Python</button>
+      <button class="filter-btn" data-lang="JavaScript">JavaScript</button>
+      <button class="filter-btn" data-lang="HTML">HTML</button>
+      <button class="filter-btn" data-lang="TypeScript">TypeScript</button>
+    </div>
+    <span class="repos-status" id="reposStatus">Loading repositories…</span>
+  </div>
+
+  <!-- Skeleton loader -->
+  <div class="skeleton-grid" id="skeletonGrid">
+    <div class="skeleton-card"><div class="sk sk-title"></div><div class="sk sk-line"></div><div class="sk sk-line"></div><div class="sk sk-line"></div><div class="sk sk-tag"></div></div>
+    <div class="skeleton-card"><div class="sk sk-title"></div><div class="sk sk-line"></div><div class="sk sk-line"></div><div class="sk sk-line"></div><div class="sk sk-tag"></div></div>
+    <div class="skeleton-card"><div class="sk sk-title"></div><div class="sk sk-line"></div><div class="sk sk-line"></div><div class="sk sk-tag"></div></div>
+    <div class="skeleton-card"><div class="sk sk-title"></div><div class="sk sk-line"></div><div class="sk sk-line"></div><div class="sk sk-line"></div><div class="sk sk-tag"></div></div>
+    <div class="skeleton-card"><div class="sk sk-title"></div><div class="sk sk-line"></div><div class="sk sk-tag"></div></div>
+    <div class="skeleton-card"><div class="sk sk-title"></div><div class="sk sk-line"></div><div class="sk sk-line"></div><div class="sk sk-tag"></div></div>
+  </div>
+
+  <div class="repos-grid" id="reposGrid" style="display:none"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">SHADOW<span class="accent">ROOT</span> SECURITY TECHNOLOGIES</div>
+  <div class="footer-text">© 2026 Uchi Chinyama — Securing the Human Layer</div>
+</footer>
+
+<script src="/shared.js"></script>
+<script>
+  const LANG_COLORS = {
+    Python: '#3572A5', JavaScript: '#f1e05a', HTML: '#e34c26',
+    CSS: '#563d7c', TypeScript: '#2b7489', Shell: '#89e051'
+  };
+
+  let allRepos = [];
+  let currentLang = 'all';
+
+  function langDot(lang) {
+    const cls = lang ? `lang-${lang.toLowerCase()}` : 'lang-default';
+    const hex = LANG_COLORS[lang] || '#6b7f91';
+    return `<span class="repo-lang-dot" style="background:${hex}"></span>`;
+  }
+
+  function timeAgo(dateStr) {
+    const diff = (Date.now() - new Date(dateStr)) / 1000;
+    if (diff < 3600)  return Math.floor(diff/60) + 'm ago';
+    if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+    if (diff < 2592000) return Math.floor(diff/86400) + 'd ago';
+    return Math.floor(diff/2592000) + 'mo ago';
+  }
+
+  function renderRepos(repos) {
+    const grid = document.getElementById('reposGrid');
+    if (!repos.length) {
+      grid.innerHTML = `<div class="repos-empty">No repositories found for this filter.</div>`;
+      return;
+    }
+    grid.innerHTML = repos.map(r => `
+      <div class="repo-card">
+        <div class="repo-top">
+          <a class="repo-name" href="${r.url}" target="_blank">${r.name}</a>
+          <svg class="repo-ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+          </svg>
+        </div>
+        <p class="repo-desc">${r.description || 'No description provided.'}</p>
+        ${r.topics && r.topics.length ? `<div class="repo-topics">${r.topics.slice(0,4).map(t => `<span class="repo-topic">${t}</span>`).join('')}</div>` : ''}
+        <div class="repo-meta">
+          ${r.language ? `<span class="repo-meta-item">${langDot(r.language)}${r.language}</span>` : ''}
+          <span class="repo-meta-item">★ ${r.stars}</span>
+          <span class="repo-meta-item">⑂ ${r.forks}</span>
+          <span class="repo-meta-item" style="margin-left:auto">${timeAgo(r.updated)}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function filterRepos() {
+    const filtered = currentLang === 'all'
+      ? allRepos
+      : allRepos.filter(r => r.language === currentLang);
+    renderRepos(filtered);
+    document.getElementById('reposStatus').textContent = `${filtered.length} repo${filtered.length !== 1 ? 's' : ''} shown`;
+  }
+
+  async function loadRepos() {
+    const skeleton = document.getElementById('skeletonGrid');
+    const grid     = document.getElementById('reposGrid');
+    const status   = document.getElementById('reposStatus');
+
+    try {
+      const res  = await fetch('/api/github-projects');
+      const json = await res.json();
+
+      skeleton.style.display = 'none';
+      grid.style.display = 'grid';
+
+      if (json.fallback || !json.repos.length) {
+        status.textContent = 'GitHub profile: github.com/uchi-c';
+        grid.innerHTML = `<div class="repos-empty">
+          Live GitHub data could not be fetched. 
+          <a href="https://github.com/uchi-c" target="_blank" style="color:var(--accent);text-decoration:none">
+            Visit github.com/uchi-c →
+          </a>
+        </div>`;
+        return;
+      }
+
+      allRepos = json.repos;
+      status.className = 'repos-status live';
+      status.textContent = `✓ ${allRepos.length} repos loaded live`;
+      filterRepos();
+
+    } catch (err) {
+      skeleton.style.display = 'none';
+      grid.style.display = 'grid';
+      grid.innerHTML = `<div class="repos-empty">
+        Could not load repositories. 
+        <a href="https://github.com/uchi-c" target="_blank" style="color:var(--accent);text-decoration:none">
+          Visit github.com/uchi-c →
+        </a>
+      </div>`;
+    }
+  }
+
+  // Filter buttons
+  document.getElementById('filterBtns').addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentLang = btn.dataset.lang;
+    filterRepos();
+  });
+
+  loadRepos();
+</script>
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init(dXHDamjRj2YDhjLdX); // ← paste your key here
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uchi Chinyama — Cybersecurity Entrepreneur</title>
+  <meta name="description" content="Uchi Chinyama — Cybersecurity Entrepreneur, AI Systems Builder, Founder & CEO of Shadow Root Security Technologies." />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,200,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,255,0.022) 1px, transparent 1px);
+      background-size: 55px 55px;
+      pointer-events: none;
+    }
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(130px); pointer-events: none;
+    }
+    .blob-1 {
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(0,87,255,0.13), transparent 70%);
+      top: -120px; right: -60px;
+    }
+    .blob-2 {
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(0,200,255,0.07), transparent 70%);
+      bottom: 0; left: 25%;
+    }
+
+    .hero-left { position: relative; z-index: 2; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-size: .62rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.6rem;
+      padding: .38rem .9rem;
+      border: 1px solid rgba(0,200,255,0.22);
+      border-radius: 2px; background: var(--accent-dim);
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); animation: pulse 2s infinite;
+    }
+
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+      line-height: 0.93; letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .hero-name .line2 { color: var(--accent); }
+
+    .hero-title {
+      font-size: .72rem; letter-spacing: .12em;
+      color: var(--text-mid); margin-bottom: 1.4rem; text-transform: uppercase;
+    }
+
+    .hero-bio {
+      font-size: .83rem; line-height: 1.85;
+      color: var(--text-dim); max-width: 470px; margin-bottom: 2.5rem;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .stat-strip {
+      display: flex; gap: 2.5rem; margin-top: 2.5rem;
+      padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+    .stat { display: flex; flex-direction: column; gap: .3rem; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.9rem; color: var(--accent);
+    }
+    .stat-label {
+      font-size: .58rem; letter-spacing: .15em;
+      color: var(--text-dim); text-transform: uppercase;
+    }
+
+    /* ── PHOTO ── */
+    .hero-right {
+      position: relative; z-index: 2;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .photo-frame {
+      position: relative; width: 330px; height: 410px;
+    }
+    .photo-frame::before {
+      content: ''; position: absolute; inset: -2px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2), transparent 60%);
+      z-index: 0;
+      clip-path: polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+    }
+    .photo-frame::after {
+      content: ''; position: absolute;
+      top: 18px; left: 18px; right: -18px; bottom: -18px;
+      border: 1px solid rgba(0,200,255,0.13); z-index: -1;
+      clip-path: polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+    }
+    .photo-inner {
+      position: relative; z-index: 1;
+      width: 100%; height: 100%; overflow: hidden;
+      clip-path: polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+      background: var(--surface);
+    }
+    .photo-inner img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      filter: grayscale(15%) contrast(1.06);
+      display: block;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--bg2); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.5px; background: var(--border);
+    }
+    .service-card {
+      background: var(--bg2); padding: 2.5rem;
+      position: relative; overflow: hidden; transition: background .3s;
+    }
+    .service-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; width: 3px; height: 0;
+      background: var(--accent); transition: height .4s ease;
+    }
+    .service-card:hover { background: var(--surface); }
+    .service-card:hover::before { height: 100%; }
+    .service-icon {
+      font-size: 1.8rem; margin-bottom: 1.2rem;
+      display: block; filter: grayscale(1) brightness(1.4);
+      transition: filter .3s;
+    }
+    .service-card:hover .service-icon { filter: none; }
+    .service-name {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1.05rem; margin-bottom: .7rem;
+    }
+    .service-desc {
+      font-size: .76rem; line-height: 1.85; color: var(--text-dim);
+    }
+    .service-tag {
+      display: inline-block; margin-top: 1.1rem;
+      padding: .26rem .6rem; font-size: .58rem;
+      letter-spacing: .15em; text-transform: uppercase;
+      border: 1px solid var(--border); color: var(--text-dim);
+    }
+
+    /* ── FEATURED PROJECTS PREVIEW ── */
+    #projects-preview { background: var(--bg3); }
+    .projects-preview-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+    .project-item {
+      background: var(--bg3); padding: 2rem 2.5rem;
+      display: grid; grid-template-columns: 40px 1fr auto;
+      align-items: start; gap: 1.5rem;
+      transition: background .25s;
+      position: relative; overflow: hidden;
+    }
+    .project-item::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      transform: scaleX(0); transition: transform .4s;
+    }
+    .project-item:hover { background: var(--surface); }
+    .project-item:hover::after { transform: scaleX(1); }
+    .project-num { font-size: .62rem; color: var(--accent); opacity: .6; padding-top: .3rem; }
+    .project-name {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1.2rem; margin-bottom: .5rem;
+    }
+    .project-desc { font-size: .76rem; line-height: 1.8; color: var(--text-dim); }
+    .project-tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .8rem; }
+    .project-arrow {
+      font-size: 1.1rem; color: var(--text-dim);
+      transition: color .2s, transform .2s; padding-top: .3rem;
+    }
+    .project-item:hover .project-arrow { color: var(--accent); transform: translate(3px,-3px); }
+    .projects-cta-wrap {
+      text-align: center; margin-top: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .about-text p {
+      font-size: .82rem; line-height: 1.92;
+      color: var(--text-dim); margin-bottom: 1.1rem;
+    }
+    .about-text p strong { color: var(--text); font-weight: 400; }
+    .skills-list { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 2rem; }
+    .skill-item { display: flex; flex-direction: column; gap: .4rem; }
+    .skill-header {
+      display: flex; justify-content: space-between;
+      font-size: .66rem; color: var(--text-mid);
+    }
+    .skill-bar { height: 2px; background: var(--border); overflow: hidden; }
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--accent2), var(--accent));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 1.4s cubic-bezier(.16,1,.3,1);
+    }
+    .skill-item.visible .skill-fill { transform: scaleX(1); }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .contact-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.7rem; font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 1rem;
+    }
+    .contact-sub {
+      font-size: .8rem; line-height: 1.85;
+      color: var(--text-dim); margin-bottom: 2.2rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: .9rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1rem 1.4rem;
+      border: 1px solid var(--border);
+      text-decoration: none; transition: border-color .2s, background .2s;
+    }
+    .contact-link:hover { border-color: var(--accent); background: var(--accent-dim); }
+    .contact-link-icon { font-size: 1rem; }
+    .contact-link-type { font-size: .58rem; letter-spacing: .15em; text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: .15rem; }
+    .contact-link-value { font-size: .8rem; color: var(--text); }
+
+    .contact-form { display: flex; flex-direction: column; gap: .9rem; }
+    .form-field { display: flex; flex-direction: column; gap: .45rem; }
+    .form-label { font-size: .62rem; letter-spacing: .15em; text-transform: uppercase; color: var(--text-dim); }
+    .form-input, .form-textarea, .form-select {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); font-family: 'IBM Plex Mono', monospace;
+      font-size: .8rem; padding: .8rem 1rem; outline: none;
+      transition: border-color .2s; resize: none;
+      appearance: none; -webkit-appearance: none;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--accent); }
+    .form-textarea { height: 110px; }
+
+    .form-status {
+      font-size: .72rem; padding: .7rem 1rem;
+      border-radius: 2px; display: none;
+    }
+    .form-status.success { background: rgba(0,232,122,.1); border: 1px solid rgba(0,232,122,.3); color: var(--green); display: block; }
+    .form-status.error   { background: rgba(255,60,90,.1); border: 1px solid rgba(255,60,90,.3); color: var(--red); display: block; }
+
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+      .hero-right { margin-top: 3rem; }
+      .photo-frame { width: 250px; height: 310px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .project-item { grid-template-columns: 36px 1fr; }
+      .project-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">UCHI<span class="accent">.</span>DEV</a>
+  <ul class="nav-links">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">Founder & CEO — Shadow Root Security Technologies</div>
+
+    <h1 class="hero-name">
+      <span class="line1">UCHI</span><br>
+      <span class="line2">CHINYAMA</span>
+    </h1>
+    <p class="hero-title">Cybersecurity Entrepreneur · AI Systems Builder · Security Engineer</p>
+    <p class="hero-bio">
+      Specializing in secure system design, offensive security research, and AI-driven risk intelligence.
+      Transforming cybersecurity from reactive defense into proactive risk intelligence — built for Africa, designed for the world.<span class="blink"></span>
+    </p>
+    <div class="hero-actions">
+      <a href="/#services" class="btn-primary">Explore Services</a>
+      <a href="/projects" class="btn-ghost">View Projects</a>
+    </div>
+    <div class="stat-strip">
+      <div class="stat"><span class="stat-num">4+</span><span class="stat-label">Core Services</span></div>
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Live Projects</span></div>
+      <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Attack Vectors Covered</span></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="photo-frame">
+      <div class="photo-inner">
+        <img src="/images/uchi.jpeg" alt="Uchi Chinyama" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section id="services">
+  <div class="section-header reveal">
+    <span class="section-number">01</span>
+    <h2 class="section-title">Core Services</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-icon">🎣</span>
+      <h3 class="service-name">Phishing Simulation</h3>
+      <p class="service-desc">Advanced phishing simulation frameworks that test organizational resilience. Adaptive logic, tailored campaigns, and detailed reporting to expose human vulnerabilities before attackers do.</p>
+      <span class="service-tag">Offensive Security</span>
+    </div>
+    <div class="service-card reveal" style="transition-delay:.1s">
+      <span class="service-icon">🌐</span>
+      <h3 class="service-name">Web Development</h3>
+      <p class="service-desc">Secure, full-stack web development with security-first architecture. Role-based authentication, session management, input validation, and API protection built into every layer.</p>
+      <span class="service-tag">Full-Stack</span>
+    </div>
+    <div class="service-card reveal" style="transition-delay:.2s">
+      <span class="service-icon">⚙️</span>
+      <h3 class="service-name">Software Development</h3>
+      <p class="service-desc">Custom software solutions integrating AI chatbots, automation systems, and secure backend architecture. From prototype to production-ready systems with threat modeling built in.</p>
+      <span class="service-tag">Engineering</span>
+    </div>
+    <div class="service-card reveal" style="transition-delay:.3s">
+      <span class="service-icon">🧠</span>
+      <h3 class="service-name">Human Risk Assessment</h3>
+      <p class="service-desc">Comprehensive human risk management strategies identifying behavioral vulnerabilities within organizations. Build security-aware cultures with AI-driven threat modeling and real-world scam detection training.</p>
+      <span class="service-tag">Risk Intelligence</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS PREVIEW ══ -->
+<section id="projects-preview">
+  <div class="section-header reveal">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Selected Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-preview-list">
+    <div class="project-item reveal">
+      <span class="project-num">001</span>
+      <div>
+        <h3 class="project-name">AI-Driven Phishing Simulation Platform</h3>
+        <p class="project-desc">A sophisticated phishing simulation prototype with adaptive campaign logic, comprehensive dashboards, and vulnerability tracking — exposing human attack surfaces before adversaries do.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">AI/ML</span><span class="tag">Security</span>
+        </div>
+      </div>
+      <span class="project-arrow">↗</span>
+    </div>
+    <div class="project-item reveal" style="transition-delay:.1s">
+      <span class="project-num">002</span>
+      <div>
+        <h3 class="project-name">Secure Web Application Framework</h3>
+        <p class="project-desc">A hardened full-stack system implementing RBAC, session management, input validation, and SQL injection prevention — a reference architecture for secure-by-default development.</p>
+        <div class="project-tags">
+          <span class="tag">Full-Stack</span><span class="tag">OWASP</span><span class="tag">API Security</span>
+        </div>
+      </div>
+      <span class="project-arrow">↗</span>
+    </div>
+    <div class="project-item reveal" style="transition-delay:.2s">
+      <span class="project-num">003</span>
+      <div>
+        <h3 class="project-name">Mobile Fraud Protection & Awareness System</h3>
+        <p class="project-desc">Security awareness models purpose-built for emerging African markets — practical mobile fraud prevention and scam detection training at every digital literacy level.</p>
+        <div class="project-tags">
+          <span class="tag">Awareness</span><span class="tag">Mobile</span><span class="tag">Africa</span>
+        </div>
+      </div>
+      <span class="project-arrow">↗</span>
+    </div>
+  </div>
+  <div class="projects-cta-wrap reveal" style="transition-delay:.3s">
+    <a href="/projects" class="btn-primary">View All Projects on GitHub →</a>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-number">03</span>
+    <h2 class="section-title">About</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I am a <strong>cybersecurity-focused software developer and entrepreneur</strong> specializing in secure system design, offensive security research, and AI-driven risk intelligence solutions.</p>
+      <p>As Founder & CEO of <strong>Shadow Root Security Technologies</strong>, I help organizations proactively identify security vulnerabilities caused by human behavior and internal exposure — before adversaries exploit them.</p>
+      <p>My expertise spans <strong>web application security (OWASP Top 10)</strong>, bug bounty research covering XSS, SQLi, and Reconnaissance, and the development of AI-integrated security tools. Currently advancing toward a <strong>SOC Analyst role</strong>, deepening skills in threat detection, monitoring, and incident response.</p>
+      <p>My mission: transform cybersecurity from reactive defense into <strong>proactive risk intelligence</strong> — and grow Shadow Root Security Technologies into a trusted African cybersecurity brand.</p>
+    </div>
+    <div class="reveal" style="transition-delay:.15s">
+      <p style="font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1.4rem;">Technical Proficiency</p>
+      <div class="skills-list" id="skillsList">
+        <div class="skill-item"><div class="skill-header"><span>Web App Security (OWASP)</span><span style="color:var(--accent)">95%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:.95"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span>Phishing Simulation Dev</span><span style="color:var(--accent)">92%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:.92"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span>Secure Full-Stack Dev</span><span style="color:var(--accent)">88%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:.88"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span>Human Risk Management</span><span style="color:var(--accent)">90%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:.90"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span>AI & Automation</span><span style="color:var(--accent)">82%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:.82"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span>Bug Bounty Research</span><span style="color:var(--accent)">85%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:.85"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="reveal">
+      <h3 class="contact-heading">Let's Secure<br>Your Organization</h3>
+      <p class="contact-sub">Whether you need a phishing simulation, a security audit, a web application built with security at its core, or a comprehensive human risk assessment — reach out.</p>
+      <div class="contact-links">
+        <a href="mailto:uchichinyama@gmail.com" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          <div><span class="contact-link-type">Email</span><span class="contact-link-value">uchichinyama@gmail.com</span></div>
+        </a>
+        <a href="tel:+260979501830" class="contact-link">
+          <span class="contact-link-icon">📞</span>
+          <div><span class="contact-link-type">Phone / WhatsApp</span><span class="contact-link-value">0979 501 830</span></div>
+        </a>
+        <a href="https://github.com/uchi-c" target="_blank" class="contact-link">
+          <span class="contact-link-icon">🐙</span>
+          <div><span class="contact-link-type">GitHub</span><span class="contact-link-value">github.com/uchi-c</span></div>
+        </a>
+        <div class="contact-link" style="cursor:default">
+          <span class="contact-link-icon">📍</span>
+          <div><span class="contact-link-type">Location</span><span class="contact-link-value">Zambia, Africa</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="transition-delay:.15s">
+      <form class="contact-form" id="contactForm">
+        <div class="form-field">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-input" name="name" placeholder="Your name" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label">Service Required</label>
+          <select class="form-select" name="service">
+            <option value="" disabled selected>Select a service</option>
+            <option>Phishing Simulation</option>
+            <option>Web Development</option>
+            <option>Software Development</option>
+            <option>Human Risk Assessment</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" name="message" placeholder="Describe your security challenge..." required></textarea>
+        </div>
+        <div class="form-status" id="formStatus"></div>
+        <button type="submit" class="btn-primary" id="submitBtn">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">SHADOW<span class="accent">ROOT</span> SECURITY TECHNOLOGIES</div>
+  <div class="footer-text">© 2026 Uchi Chinyama — Securing the Human Layer</div>
+</footer>
+
+<script src="/shared.js"></script>
+<script>
+  // ── Skill bars triggered by IntersectionObserver ──
+  const skillItems = document.querySelectorAll('.skill-item');
+  const skillObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        const fill = e.target.querySelector('.skill-fill');
+        const w = parseFloat(getComputedStyle(fill).getPropertyValue('--w') || 1);
+        setTimeout(() => { fill.style.transform = `scaleX(${w})`; }, 100);
+      }
+    });
+  }, { threshold: 0.3 });
+  skillItems.forEach(s => skillObs.observe(s));
+
+  // ── Contact form via fetch to Node backend ──
+  const form   = document.getElementById('contactForm');
+  const status = document.getElementById('formStatus');
+  const btn    = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    btn.textContent = 'Sending…';btn.disabled = true;
+    const data = Object.formEntries(new FormData(form));
+
+    const templateParams = {
+      from_name:    form.name.value,
+      from_email:   form.email.value,
+      service_type: form.service.value,
+      message:      form.message.value
+    };
+
+    emailjs.send('service_gq85fzo', 'template_pughvzi', templateParams)
+      .then(() => {
+        status.className = 'form-status success';
+        status.textContent = '✓ Message sent! I will get back to you shortly.';
+        form.reset();
+        btn.textContent = 'Message Sent ✓';
+      })
+      .catch(() => {
+        status.className = 'form-status error';
+        status.textContent = '✗ Something went wrong. Please email directly.';
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+      });
+  });
+</script>
+</body>
+</html>

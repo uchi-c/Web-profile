@@ -1,4 +1,5 @@
 const express = require('express');
+const nodemailer = require('nodemailer');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -7,6 +8,14 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'index.html')));
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
 
 // Routes
 app.get('/', (req, res) => {
@@ -18,12 +27,34 @@ app.get('/projects', (req, res) => {
 });
 
 // API: Contact form submission
-app.post('/api/contact', (req, res) => {
+app.post('/api/contact', async (req, res) => {
   const { name, email, service, message } = req.body;
 
   if (!name || !email || !message) {
-    return res.status(400).json({ success: false, error: 'Missing required fields.' });
+    return res.status(400).json({ success: false, error: "Missing required fields" });
   }
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: process.env.EMAIL_USER, // You receive the message
+    subject: `New Contact Form Submission - ${service || "General"}`,
+    html: `
+      <h3>New Contact Message</h3>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Service:</strong> ${service || "Not specified"}</p>
+      <p><strong>Message:</strong><br>${message}</p>
+    `
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false });
+  }
+});
 
   // Log to console (replace with email/DB logic in production)
   console.log('\n--- NEW CONTACT SUBMISSION ---');
